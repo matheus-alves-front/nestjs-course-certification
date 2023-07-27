@@ -1,12 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { Cat } from './entities/cat.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
+import { Connection, DataSource, Repository } from 'typeorm';
 import { Flavor } from './entities/flavor.entity/flavor.entity';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto/pagination-query.dto';
 import { Event } from '../events/entities/event.entity/event.entity';
+import { CATS_BRANDS } from './cats.contants';
 
 @Injectable()
 export class CatsService {
@@ -15,8 +16,12 @@ export class CatsService {
     private readonly catsRepository: Repository<Cat>,
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
-    private readonly dataSource: DataSource
-  ) {}
+    private readonly dataSource: DataSource,
+    private readonly connection: Connection,
+    @Inject(CATS_BRANDS) catsBrands: string[]
+  ) {
+    console.log(catsBrands)
+  }
 
   async create(createCatDto: CreateCatDto) {
     const flavors = await Promise.all(
