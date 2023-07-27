@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto/pagination-query.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -14,16 +15,13 @@ export class CatsController {
 
   @Get()
   
-  findAll(@Query() paginationQuery) {
-    const {limit, offset} = paginationQuery
-    return this.catsService.findAll()
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.catsService.findAll(paginationQuery)
   }
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    const cat = this.catsService.findOne(id - 1)
-    
-    if (!cat) throw new NotFoundException('nao encontrado')
+    const cat = this.catsService.findOne(id)
 
     return cat;
   }
