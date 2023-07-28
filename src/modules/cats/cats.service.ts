@@ -8,6 +8,8 @@ import { Flavor } from './entities/flavor.entity/flavor.entity';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto/pagination-query.dto';
 import { Event } from '../events/entities/event.entity/event.entity';
 import { CATS_BRANDS } from './cats.contants';
+import { ConfigService, ConfigType } from '@nestjs/config';
+import catsConfig from './configs/cats.config';
 
 @Injectable()
 export class CatsService {
@@ -17,10 +19,13 @@ export class CatsService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
-    private readonly connection: Connection,
-    @Inject(CATS_BRANDS) catsBrands: string[]
+    // private readonly connection: Connection,
+    // @Inject(CATS_BRANDS) catsBrands: string[],
+    // @Inject(catsConfig.KEY)
+    // private readonly catsConfiguration: ConfigType<typeof catsConfig>
   ) {
-    console.log(catsBrands)
+    // const catsConfig = this.catsConfiguration
+    // console.log(catsConfig)
   }
 
   async create(createCatDto: CreateCatDto) {
