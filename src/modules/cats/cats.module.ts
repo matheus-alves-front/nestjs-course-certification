@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import { CatsController } from './cats.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,6 +8,7 @@ import { Event } from '../events/entities/event.entity/event.entity';
 import { CATS_BRANDS } from './cats.contants';
 import { ConfigModule } from '@nestjs/config';
 import catsConfig from './configs/cats.config';
+import { APP_PIPE, APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -17,13 +18,17 @@ import catsConfig from './configs/cats.config';
   controllers: [CatsController],
   providers: [
     CatsService, 
-    {
-      provide: CATS_BRANDS, 
-      useFactory: () => [
-        'pard',
-        'garfield style'
-      ]
-    }
+    // {
+    //   provide: CATS_BRANDS, 
+    //   useFactory: () => [
+    //     'pard',
+    //     'garfield style'
+    //   ]
+    // }
+    // {
+    //   provide: APP_PIPE,
+    //   useClass: ValidationPipe
+    // }
   ],
   exports: [CatsService]
 })
