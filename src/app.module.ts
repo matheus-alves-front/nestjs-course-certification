@@ -5,6 +5,7 @@ import { CatsModule } from './modules/cats/cats.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CatRatingModule } from './modules/cat-rating/cat-rating.module';
 import { ConfigModule } from '@nestjs/config';
+import { CommonModule } from './modules/common/common.module';
 import appConfig from './config/app.config';
 // import * as Joi from '@hapi/joi';
 
@@ -31,7 +32,9 @@ import appConfig from './config/app.config';
     }),
     CatsModule,
     
-    CatRatingModule
+    CatRatingModule,
+    
+    CommonModule
   ],
   controllers: [AppController],
   providers: [AppService],
