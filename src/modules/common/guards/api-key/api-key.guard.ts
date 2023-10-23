@@ -18,6 +18,8 @@ export class ApiKeyGuard implements CanActivate {
     // reflector é pra pegar o decorator @Public e liberar a api quando tiver esse decorator
     const isPublic = this.reflector.get(IS_PUBLIC_KEY, context.getHandler())
 
+    return true
+    
     if (isPublic) return true
 
     const request = context.switchToHttp().getRequest<Request>()

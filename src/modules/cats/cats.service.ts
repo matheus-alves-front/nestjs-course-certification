@@ -25,7 +25,7 @@ export class CatsService {
     // private readonly catsConfiguration: ConfigType<typeof catsConfig>
   ) {
     // const catsConfig = this.catsConfiguration
-    // console.log(catsConfig)
+    // console.log(catsBrands)
   }
 
   async create(createCatDto: CreateCatDto) {

@@ -18,8 +18,10 @@ import { PaginationQueryDto } from '../common/dto/pagination-query.dto/paginatio
 import { Public } from '../common/decorators/public.decorator';
 import { ParseIntPipe } from '../common/pipes/parse-int/parse-int.pipe';
 import { Protocol } from '../common/decorators/protocol.decorator';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 // @UsePipes(ValidationPipe)
+@ApiTags('Cats')
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
@@ -31,6 +33,7 @@ export class CatsController {
 
 // @UsePipes(ValidationPipe)
   // @SetMetadata('isPublic', true)
+  @ApiResponse({ status: 403, description: 'Forbidden!!!'})
   @Public()
   @Get()
   async findAll(
@@ -38,13 +41,13 @@ export class CatsController {
     @Query() paginationQuery: PaginationQueryDto
   ) {
     // await new Promise(resolve => setTimeout(resolve, 5000))
-    console.log(protocol)
+    // console.log(protocol)
     return this.catsService.findAll(paginationQuery)
   }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
-    console.log(id)
+    // console.log(id)
     const cat = this.catsService.findOne(id)
 
     return cat;
